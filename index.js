@@ -64,13 +64,56 @@ class Trie {
 
 let trie = new Trie();
 
+const carArr = ['BMW', 'Audi', 'Mercedes', 'Skoda', 'Alpha Romeo', 'Volvo', 'Nissan', 'Fiat', 'Lamborghini', 'Bentley', 'Ford', 'Rover', 'Jaguar', 'Peugeot', 'Vauxhall', 'Renault'];
+const footballTeamArr = ['Arsenal', 'Chelsea', 'Manchester City', 'Manchester United', 'Leeds', 'West Ham', 'Norwich', 'Brighton', 'Wolves', 'Aston Villa', 'Liverpool', 'Newcastle'];
 
 const FindWord = (input) => {
-    document.getElementById('searchBox').setAttribute('placeholder', trie.suggestWord(trie.head, input.value, ''));
+    input = input.toLowerCase();
+    let fetchedWord = trie.suggestWord(trie.head, input, '');
+    if(fetchedWord){
+        fetchedWord = fetchedWord.charAt(0).toUpperCase() + fetchedWord.slice(1);
+
+            document.getElementById('suggestion').innerText = `Did you mean: ${fetchedWord}?`;
+    }
+    else {
+        document.getElementById('suggestion').innerText = `No words could be found for "${input}"`;
+    }
 }
 
 const AddWord = () => {
-    const word = document.getElementById('addBox').value;
+    let word = document.getElementById('addBox').value;
+    word = word.toLowerCase();
     trie.addWord(trie.head, word);
+    document.getElementById('addBox').value = "";
+    document.getElementById('generatedJson').textContent = JSON.stringify(trie, undefined,2);
     return alert(`${word} has been added`);
 }
+
+const LoadData = (arr) => {
+    arr.forEach((item) => {
+        item = item.toLowerCase();
+        trie.addWord(trie.head, item);
+    });
+    document.getElementById('generatedJson').textContent = JSON.stringify(trie, undefined,2);
+}
+
+const LoadCars = () => {
+   LoadData(carArr);
+   return alert("Car brands have been added");
+}
+
+const LoadFootballTeams = () => {
+    LoadData(footballTeamArr);
+    return alert("Football teams have been added");
+}
+
+document.getElementById('searchBox').addEventListener('keyup', (e) => {
+    if(e.target.value){
+        FindWord(e.target.value);
+    }
+    else {
+        document.getElementById('suggestion').innerText = "";
+    }
+})
+
+
