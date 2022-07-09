@@ -1,4 +1,4 @@
-# TrieAutoComplete
+# Suggestive Input using Tries and Recursion
 A project to showcase a suggestive input which demonstrates the use of a trie data structure and recursion.
 
 ## To view the project
