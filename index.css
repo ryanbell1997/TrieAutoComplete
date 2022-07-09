@@ -1,0 +1,12 @@
+.placeholder {
+    position: relative;
+}
+
+.placeholder::after {
+    position: absolute;
+    left: 10px;
+    top: 2px;
+    content: attr(placeholder);
+    pointer-events: none;
+    opacity: 0.5;
+}
